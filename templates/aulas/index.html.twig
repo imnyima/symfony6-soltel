@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AulasController!{% endblock %}
+
+{% block body %}
+
+<main class="example-wrapper">
+    <h1>Hola {{ controller_name }}! <i class="fa-solid fa-check text-light btn btn-outline-success p-1"></i></h1>
+
+    This friendly message is coming from:
+    <ul>
+        <li>Your controller at <code>/var/www/html/symfony6-soltel/src/Controller/AulasController.php</code></li>
+        <li>Your template at <code>/var/www/html/symfony6-soltel/templates/aulas/index.html.twig</code></li>
+    </ul>
+
+    <!-- MOSTRAR TABLA AULAS -->
+    <section>
+        <h2>Tabla Aulas</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nº Aula</th>
+                    <th>Capacidad</th> 
+                    <th>Docente</th> 
+                    <th>Hardware</th>                 
+                </tr>
+            </thead>
+            <tbody>
+                <!-- CREAMOS VARIABLE HARDWAREAULA PARA VER SI TIENE PCS O NO -->
+                {% set hardwareAula = "No tiene PCs" %}
+                <!-- tabla ES DE AULASCONTROLLER.PHP EN EL FINAL -->
+                {% for aula in tabla %}
+                    {% if aula.hardware %}
+                        {% set hardwareAula = "Lleva PCs" %}
+                    {% endif %}
+                    
+                    <tr>
+                    <!-- HACE REFERENCIA A LOS NOMBRES DE LAS VARIABLES DEL ARCHIVO AULAS.PHP -->
+                        <td>{{ aula.numAula }}</td>
+                        <td>{{ aula.capacidad }}</td>
+                        <td>{{ aula.docente }}</td>
+                        <!-- MOSTRAMOS VARIABLE CREADA ANTERIORMENTE SI TIENE PCS O NO -->
+                        <td>{{ hardwareAula }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+    <p><a href="../alumnos/consultarAlumnos/" class="btn btn-outline-success">Ver alumnos</a></p>
+</main>
+{% endblock %}

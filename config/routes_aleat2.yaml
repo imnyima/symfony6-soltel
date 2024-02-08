@@ -1,0 +1,9 @@
+app_hola:
+    path: /hola/{nombre}/{apellido}
+    controller: App\Controller\HolaController::index
+    methods: GET 
+
+app_suma:
+    path: /suma/{num1}/{num2}
+    controller: App\Controller\HolaController::suma
+    methods: GET 

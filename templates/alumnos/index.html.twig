@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AlumnosController!{% endblock %}
+
+{% block body %}
+
+<main class="example-wrapper">
+    <h1>Hola {{ controller_name }}! <i class="fa-solid fa-check text-light btn btn-outline-success p-1"></i></h1>
+    
+<section>
+<!-- SI EXISTE LA VARIABLE FILASALUMNOS, SE MUESTRA TODO LO SIGUIENTE: -->
+{% if filasAlumnos is defined%}
+        <h2>Tabla Alumnos</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>NIF</th>
+                    <th>Nombre</th> 
+                    <th>Sexo</th> 
+                    <th>Nº Aula</th> 
+                    <th>Docente</th>  
+                    <th>Fecha Nacimiento</th>              
+                </tr>
+            </thead>
+            <tbody>
+                <!-- tabla ES DE ALUMNOSCONTROLLER.PHP EN EL FINAL -->
+                {% for alumno in filasAlumnos %}
+                    {% if alumno.sexo %}
+                    <!-- CREAMOS VARIABLE -->
+                        {% set valorSexo = "Mujer" %}
+                    {% else %}
+                        {% set valorSexo = "Hombre" %}
+                    {% endif %}
+                    
+                    <tr>
+                    <!-- HACE REFERENCIA A LOS NOMBRES DE LAS VARIABLES DEL ARCHIVO AULAS.PHP -->
+                        <td>{{ alumno.nif }}</td>
+                        <td>{{ alumno.nombre }}</td>
+                        <!-- MOSTRAMOS VARIABLE CREADA ANTERIORMENTE SI ES HOMBRE O MUJER -->
+                        <td>{{ valorSexo }}</td>
+                        <td>{{ alumno.num_aula }}</td>
+                        <td>{{ alumno.docente }}</td>
+                        <!-- PRIMERA FORMA DE JOIN: -->
+                        <!-- <td> alumno.fechanac </td> -->
+
+                        <!-- SEGUNDA FORMA DE JOIN: -->
+                        <td> {{ alumno.fechanac|date('Y-m-d') }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+
+
+<!-- TABLA DE ALUMNAS QUE SEAN MENORES DE 30 AÑOS: -->
+
+        {% if registrosAlumnas is defined%}
+        <h2>Tabla Alumnas</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>NIF</th>
+                    <th>Nombre</th> 
+                    <th>Edad</th> 
+                    <th>Fecha Nacimiento</th>              
+                </tr>
+            </thead>
+            <tbody>
+                <!-- alumna y registrosAlumnas ES DE ALUMNOSCONTROLLER.PHP EN EL FINAL -->
+                {% for alumna in registrosAlumnas %}
+                    <tr>
+                        <td>{{ alumna.nif }}</td>
+                        <td>{{ alumna.nombre }}</td>
+                        <td>{{ alumna.edad }}</td>
+                        <td> {{ alumna.fechanac|date('Y-m-d') }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </section>
+</main>
+{% endblock %}
